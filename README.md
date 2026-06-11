@@ -27,6 +27,7 @@ The long-term vision is to provide users with a virtual stylist available on dem
 
 ## MVP Scope
 The MVP focuses on validating the recommendation workflow utilizing a modern MERN stack architecture (MongoDB, Express, React with Vite, and Node.js) paired with Tailwind CSS for rapid UI development.
+> **Live Demo:** [View Live App on Vercel](https://thread-match.vercel.app/)
 
 ### Included Features
 
