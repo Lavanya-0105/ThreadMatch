@@ -9,6 +9,12 @@ export default function Home() {
       {/* Hero */}
 
       <section className="max-w-7xl mx-auto px-6 py-24">
+        <Link
+          to="/questionnaire"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black text-white font-medium shadow-lg hover:scale-105 transition"
+        >
+          🚀 View MVP Demo
+        </Link>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-6xl font-bold leading-tight">
