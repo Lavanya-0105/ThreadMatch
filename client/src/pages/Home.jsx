@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 const ROADMAP = [
   {
@@ -25,6 +26,7 @@ const ROADMAP = [
 ];
 
 export default function Home() {
+  const { isMobile } = useWindowSize();
   const [showRoadmap, setShowRoadmap] = useState(false);
 
   return (
@@ -47,86 +49,92 @@ export default function Home() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "1.25rem 2.5rem",
-          background:
-            "linear-gradient(to bottom, rgba(245,242,238,0.98), transparent)",
+          padding: "1rem 1.5rem",
+          backgroundColor: "rgba(245,242,238,0.98)",
+          borderBottom: "1px solid #E2DDD6",
         }}
       >
         <span
           style={{
-            fontSize: "1.25rem",
+            fontSize: "1.15rem",
             fontWeight: 800,
             letterSpacing: "-0.04em",
+            color: "#1A1714",
           }}
         >
           Thread<span style={{ color: "#8B6914" }}>Match</span>
         </span>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-          <a
-            href="#how-it-works"
-            style={{
-              color: "#4A4540",
-              fontSize: "0.875rem",
-              textDecoration: "none",
-              display: window.innerWidth < 768 ? "none" : "block",
-            }}
-          >
-            How it works
-          </a>
-          <a
-            href="#features"
-            style={{
-              color: "#4A4540",
-              fontSize: "0.875rem",
-              textDecoration: "none",
-              display: window.innerWidth < 768 ? "none" : "block",
-            }}
-          >
-            Features
-          </a>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          {/* Hide these on mobile */}
+          {!isMobile && (
+            <>
+              <a
+                href="#how-it-works"
+                style={{
+                  color: "#4A4540",
+                  fontSize: "0.875rem",
+                  textDecoration: "none",
+                }}
+              >
+                How it works
+              </a>
+              <a
+                href="#features"
+                style={{
+                  color: "#4A4540",
+                  fontSize: "0.875rem",
+                  textDecoration: "none",
+                }}
+              >
+                Features
+              </a>
+              <Link
+                to="/login"
+                style={{
+                  color: "#4A4540",
+                  fontSize: "0.875rem",
+                  textDecoration: "none",
+                }}
+              >
+                Login
+              </Link>
+            </>
+          )}
           <button
             onClick={() => setShowRoadmap(!showRoadmap)}
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "0.375rem",
-              padding: "0.4rem 1rem",
+              gap: "0.25rem",
+              padding: "0.4rem 0.875rem",
               backgroundColor: "#EDE9E3",
-              border: "1px solid #333",
+              border: "1px solid #D4CFC8",
               borderRadius: "999px",
-              fontSize: "0.8rem",
+              fontSize: "0.78rem",
               fontWeight: 600,
               color: "#8B6914",
               cursor: "pointer",
               fontFamily: "inherit",
+              whiteSpace: "nowrap",
             }}
           >
-            ✦ What's coming
+            ✦ {isMobile ? "Coming" : "What's coming"}
           </button>
-          <Link
-            to="/login"
-            style={{
-              color: "#4A4540",
-              fontSize: "0.875rem",
-              textDecoration: "none",
-            }}
-          >
-            Login
-          </Link>
           <Link
             to="/questionnaire"
             style={{
               backgroundColor: "#1A1714",
               color: "#fff",
-              padding: "0.5rem 1.25rem",
+              padding: "0.45rem 1rem",
               borderRadius: "999px",
-              fontSize: "0.875rem",
+              fontSize: "0.82rem",
               fontWeight: 700,
               textDecoration: "none",
+              whiteSpace: "nowrap",
             }}
           >
-            Get Started
+            {isMobile ? "Start" : "Get Started"}
           </Link>
         </div>
       </nav>
@@ -140,12 +148,12 @@ export default function Home() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "rgba(0,0,0,0.85)",
-            zIndex: 40,
+            backgroundColor: "rgba(0,0,0,0.7)",
+            zIndex: 100,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            padding: "2rem",
+            padding: isMobile ? "1rem" : "2rem",
           }}
           onClick={() => setShowRoadmap(false)}
         >
@@ -154,9 +162,11 @@ export default function Home() {
               backgroundColor: "#FDFCFA",
               border: "1px solid #E2DDD6",
               borderRadius: "1.25rem",
-              padding: "2.5rem",
+              padding: isMobile ? "1.5rem" : "2.5rem",
               maxWidth: "680px",
               width: "100%",
+              maxHeight: "90vh",
+              overflowY: "auto",
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -165,7 +175,7 @@ export default function Home() {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "flex-start",
-                marginBottom: "2rem",
+                marginBottom: "1.5rem",
               }}
             >
               <div>
@@ -183,7 +193,7 @@ export default function Home() {
                 </p>
                 <h2
                   style={{
-                    fontSize: "1.75rem",
+                    fontSize: isMobile ? "1.375rem" : "1.75rem",
                     fontWeight: 800,
                     margin: 0,
                     letterSpacing: "-0.03em",
@@ -211,6 +221,8 @@ export default function Home() {
                   cursor: "pointer",
                   fontSize: "1.5rem",
                   lineHeight: 1,
+                  flexShrink: 0,
+                  marginLeft: "1rem",
                 }}
               >
                 ×
@@ -220,8 +232,8 @@ export default function Home() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "1rem",
+                gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+                gap: "0.875rem",
               }}
             >
               {ROADMAP.map((item, i) => (
@@ -278,6 +290,7 @@ export default function Home() {
           display: "flex",
           alignItems: "center",
           overflow: "hidden",
+          paddingTop: "64px",
         }}
       >
         {/* Full-screen background image */}
@@ -309,7 +322,7 @@ export default function Home() {
             position: "relative",
             maxWidth: "1200px",
             margin: "0 auto",
-            padding: "0 2.5rem",
+            padding: isMobile ? "0 1.25rem" : "0 2.5rem",
             width: "100%",
           }}
         >
@@ -390,7 +403,7 @@ export default function Home() {
                 gap: "0.5rem",
               }}
             >
-              🚀 Create an account
+              Sign Up
             </Link>
           </div>
 
