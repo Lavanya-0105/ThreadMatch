@@ -24,14 +24,7 @@ function App() {
 
         <Route path="/signup" element={<Signup />} />
 
-        <Route
-          path="/questionnaire"
-          element={
-            <ProtectedRoute>
-              <Questionnaire />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/questionnaire" element={<Questionnaire />} />
 
         <Route
           path="/wardrobe-builder"
