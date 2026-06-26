@@ -90,7 +90,7 @@ export default function Home() {
                 Features
               </a>
               <Link
-                to="/login"
+                to="/questionnaire"
                 style={{
                   color: "#4A4540",
                   fontSize: "0.875rem",
@@ -393,7 +393,7 @@ export default function Home() {
               Get Started Free →
             </Link>
             <Link
-              to="/signup"
+              to="/questionnaire"
               style={{
                 color: "#4A4540",
                 fontSize: "0.875rem",
