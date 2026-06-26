@@ -1,26 +1,79 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({
+  showBack = false,
+  backLabel = "← Back",
+  backPath = "/",
+}) {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
   return (
-    <nav className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">ThreadMatch</h1>
+    <nav
+      style={{
+        backgroundColor: "#FDFCFA",
+        borderBottom: "1px solid #E2DDD6",
+        padding: "1rem 2rem",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        position: "sticky",
+        top: 0,
+        zIndex: 20,
+      }}
+    >
+      <Link
+        to="/"
+        style={{
+          fontSize: "1.15rem",
+          fontWeight: 800,
+          letterSpacing: "-0.03em",
+          color: "#1A1714",
+          textDecoration: "none",
+        }}
+      >
+        Thread<span style={{ color: "#8B6914" }}>Match</span>
+      </Link>
 
-        <div className="flex gap-6 items-center">
-          <a href="#features">Features</a>
-          <a href="#how-it-works">How It Works</a>
-
-          <Link to="/login" className="px-4 py-2 border rounded-lg">
-            Login
-          </Link>
-
-          <Link
-            to="/signup"
-            className="bg-black text-white px-4 py-2 rounded-lg"
+      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        {showBack && (
+          <button
+            onClick={() => navigate(backPath)}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#6B6560",
+              fontSize: "0.85rem",
+              cursor: "pointer",
+              fontFamily: "inherit",
+            }}
           >
-            Get Started
-          </Link>
-        </div>
+            {backLabel}
+          </button>
+        )}
+        {token && (
+          <button
+            onClick={handleLogout}
+            style={{
+              background: "none",
+              border: "1px solid #E2DDD6",
+              borderRadius: "999px",
+              padding: "0.4rem 1rem",
+              color: "#6B6560",
+              fontSize: "0.8rem",
+              cursor: "pointer",
+              fontFamily: "inherit",
+            }}
+          >
+            Log out
+          </button>
+        )}
       </div>
     </nav>
   );

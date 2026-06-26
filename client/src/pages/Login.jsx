@@ -4,38 +4,24 @@ import axios from "axios";
 
 export default function Login() {
   const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const handleChange = (e) =>
+    setFormData((p) => ({ ...p, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       setLoading(true);
       setError("");
-
-      const response = await axios.post(
+      const res = await axios.post(
         "http://localhost:5000/api/auth/login",
         formData,
       );
-
-      localStorage.setItem("token", response.data.token);
-
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       navigate("/questionnaire");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
@@ -45,62 +31,224 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
-        <h1 className="text-3xl font-bold text-center mb-2">Welcome Back</h1>
-
-        <p className="text-center text-gray-500 mb-8">Sign in to continue</p>
-
-        {error && (
-          <div className="bg-red-100 text-red-600 p-3 rounded mb-4">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block mb-2 font-medium">Email</label>
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-black"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-2 font-medium">Password</label>
-
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-black"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-black text-white py-3 rounded-lg hover:opacity-90"
+    <div
+      style={{
+        fontFamily: "'Inter', system-ui, sans-serif",
+        backgroundColor: "#F5F2EE",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {/* Nav */}
+      <nav
+        style={{
+          padding: "1.25rem 2rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          borderBottom: "1px solid #E2DDD6",
+          backgroundColor: "#FDFCFA",
+        }}
+      >
+        <Link
+          to="/"
+          style={{
+            fontSize: "1.1rem",
+            fontWeight: 800,
+            letterSpacing: "-0.03em",
+            color: "#1A1714",
+            textDecoration: "none",
+          }}
+        >
+          Thread<span style={{ color: "#8B6914" }}>Match</span>
+        </Link>
+        <span style={{ fontSize: "0.85rem", color: "#6B6560" }}>
+          No account?{" "}
+          <Link
+            to="/signup"
+            style={{
+              color: "#1A1714",
+              fontWeight: 600,
+              textDecoration: "none",
+            }}
           >
-            {loading ? "Signing In..." : "Sign In"}
-          </button>
-        </form>
-
-        <p className="text-center mt-6 text-gray-600">
-          Don't have an account?{" "}
-          <Link to="/signup" className="font-semibold text-black">
-            Create Account
+            Sign up
           </Link>
-        </p>
+        </span>
+      </nav>
+
+      {/* Form */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "2rem",
+        }}
+      >
+        <div style={{ width: "100%", maxWidth: "420px" }}>
+          <p
+            style={{
+              fontSize: "0.7rem",
+              fontWeight: 700,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "#8B6914",
+              margin: "0 0 0.75rem",
+            }}
+          >
+            Welcome back
+          </p>
+          <h1
+            style={{
+              fontSize: "2rem",
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
+              color: "#1A1714",
+              margin: "0 0 0.5rem",
+            }}
+          >
+            Sign in
+          </h1>
+          <p
+            style={{
+              color: "#6B6560",
+              fontSize: "0.875rem",
+              margin: "0 0 2rem",
+            }}
+          >
+            Continue to your ThreadMatch profile
+          </p>
+
+          {error && (
+            <div
+              style={{
+                backgroundColor: "#FEF2F2",
+                border: "1px solid #FECACA",
+                color: "#7F1D1D",
+                padding: "0.875rem 1rem",
+                borderRadius: "0.625rem",
+                fontSize: "0.85rem",
+                marginBottom: "1.25rem",
+              }}
+            >
+              {error}
+            </div>
+          )}
+
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}
+          >
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  color: "#4A4540",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                style={{
+                  width: "100%",
+                  padding: "0.75rem 1rem",
+                  border: "1.5px solid #E2DDD6",
+                  borderRadius: "0.625rem",
+                  fontSize: "0.9rem",
+                  backgroundColor: "#FDFCFA",
+                  color: "#1A1714",
+                  fontFamily: "inherit",
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+            </div>
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  color: "#4A4540",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="••••••••"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                style={{
+                  width: "100%",
+                  padding: "0.75rem 1rem",
+                  border: "1.5px solid #E2DDD6",
+                  borderRadius: "0.625rem",
+                  fontSize: "0.9rem",
+                  backgroundColor: "#FDFCFA",
+                  color: "#1A1714",
+                  fontFamily: "inherit",
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                backgroundColor: loading ? "#9C9488" : "#1A1714",
+                color: "#fff",
+                border: "none",
+                borderRadius: "999px",
+                padding: "0.875rem",
+                fontSize: "0.9rem",
+                fontWeight: 700,
+                cursor: loading ? "not-allowed" : "pointer",
+                fontFamily: "inherit",
+                marginTop: "0.5rem",
+              }}
+            >
+              {loading ? "Signing in..." : "Sign In"}
+            </button>
+          </form>
+
+          <p
+            style={{
+              textAlign: "center",
+              marginTop: "1.5rem",
+              fontSize: "0.85rem",
+              color: "#6B6560",
+            }}
+          >
+            Don't have an account?{" "}
+            <Link
+              to="/signup"
+              style={{
+                color: "#1A1714",
+                fontWeight: 600,
+                textDecoration: "none",
+              }}
+            >
+              Create one
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
