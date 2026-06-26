@@ -1,7 +1,7 @@
 # ThreadMatch — AI-Powered Adaptive Styling Engine
 
 **Live Demo:** [View Live App on Vercel](https://thread-match.vercel.app/)
-[Backend] (https://threadmatch-production.up.railway.app)
+**[Backend API](https://threadmatch-production.up.railway.app/api/health)**
 
 ## Project Overview
 
