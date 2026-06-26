@@ -69,6 +69,7 @@ export default function Home() {
               color: "#4A4540",
               fontSize: "0.875rem",
               textDecoration: "none",
+              display: window.innerWidth < 768 ? "none" : "block",
             }}
           >
             How it works
@@ -79,6 +80,7 @@ export default function Home() {
               color: "#4A4540",
               fontSize: "0.875rem",
               textDecoration: "none",
+              display: window.innerWidth < 768 ? "none" : "block",
             }}
           >
             Features
@@ -388,7 +390,7 @@ export default function Home() {
                 gap: "0.5rem",
               }}
             >
-              Sign Up
+              🚀 Create an account
             </Link>
           </div>
 
